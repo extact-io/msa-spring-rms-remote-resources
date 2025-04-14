@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "serialNo": "A0001",
+    "itemName": "レンタル品1号"
+  },
+  {
+    "id": 2,
+    "serialNo": "A0002",
+    "itemName": "レンタル品2号"
+  },
+  {
+    "id": 3,
+    "serialNo": "A0003",
+    "itemName": "レンタル品3号"
+  },
+  {
+    "id": 4,
+    "serialNo": "A0004",
+    "itemName": "レンタル品4号"
+  }
+]

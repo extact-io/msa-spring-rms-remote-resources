@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "fromDateTime": "2020-04-01T10:00:00",
+    "toDateTime": "2020-04-01T12:00:00",
+    "note": "メモ1",
+    "itemId": 3,
+    "reserverId": 1
+  },
+  {
+    "id": 2,
+    "fromDateTime": "2020-04-01T16:00:00",
+    "toDateTime": "2020-04-01T18:00:00",
+    "note": "メモ2",
+    "itemId": 3,
+    "reserverId": 2
+  },
+  {
+    "id": 3,
+    "fromDateTime": "2099-04-01T10:00:00",
+    "toDateTime": "2099-04-01T12:00:00",
+    "note": "メモ3",
+    "itemId": 3,
+    "reserverId": 1
+  }
+]

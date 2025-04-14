@@ -1,0 +1,49 @@
+logging.level:
+  org.springframework: info
+    #transaction: info
+    #security: trace
+    #context.support.ResourceBundleMessageSource: DEBUG
+
+spring:
+  messages:
+    basename: fw-messages
+    encoding: UTF-8
+  profiles:
+    group:
+      jpa-all: item-jpa,reservation-jpa,user-jpa
+      file-all: item-file,reservation-file,user-file
+    default: jpa-all
+  mvc:
+    format:
+      date: yyyyMMdd
+      date-time: yyyyMMdd HH:mm
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "env,beans"
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+      group:
+        readiness:
+          include: "readinessState,db"
+      validate-group-membership: false # groupにindicatorが存在しない場合もエラーにしない設定
+
+rms:
+  log:
+    server:
+      enable: false
+  rest:
+    controller:
+      format:
+        date: ${spring.mvc.format.date}
+        date-time: ${spring.mvc.format.date-time}
+  resources:
+    item: classpath:json/item.json
+    reservation: classpath:json/reservation.json
+    user: classpath:json/user.json

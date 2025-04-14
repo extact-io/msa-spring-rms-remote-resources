@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "loginId": "member1",
+    "password": "member1",
+    "userName": "メンバー1",
+    "phoneNumber": "070-1111-2222",
+    "contact": "連絡先1",
+    "userType": "MEMBER"
+  },
+  {
+    "id": 2,
+    "loginId": "member2",
+    "password": "member2",
+    "userName": "メンバー2",
+    "phoneNumber": "080-1111-2222",
+    "contact": "連絡先2",
+    "userType": "MEMBER"
+  },
+  {
+    "id": 3,
+    "loginId": "admin",
+    "password": "admin",
+    "userName": "管理者",
+    "phoneNumber": "050-1111-2222",
+    "contact": "連絡先3",
+    "userType": "ADMIN"
+  }
+]

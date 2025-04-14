@@ -1,0 +1,12 @@
+debug: false
+
+spring:
+  main:
+    banner-mode: off
+
+rms:
+  debug:
+    configdump:
+      enable: false
+      #system-properties: on
+      #system-environment: on
