@@ -3,69 +3,54 @@ package io.extact.msa.spring.rms.remote.resources.controller;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
+import org.springframework.web.method.HandlerTypePredicate;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import io.extact.msa.spring.platform.core.env.ActiveProfileResolver;
-import io.extact.msa.spring.platform.core.env.EnvConfig;
-import io.extact.msa.spring.platform.core.env.MainModuleInformation;
+import io.extact.msa.spring.platform.core.auth.configure.AuthorizeHttpRequestCustomizer;
+import io.extact.msa.spring.platform.core.auth.header.RmsHeaderAuthConfig;
 import io.extact.msa.spring.platform.fw.interfaces.webapi.RestControllerConfig;
-import io.extact.msa.spring.rms.application.admin.ItemAdminService;
-import io.extact.msa.spring.rms.application.admin.ReservationAdminService;
-import io.extact.msa.spring.rms.application.admin.UserAdminService;
-import io.extact.msa.spring.rms.application.member.ReserveItemService;
-import io.extact.msa.spring.rms.application.universal.LoginService;
-import io.extact.msa.spring.rms.application.universal.UserProfileService;
-import io.extact.msa.spring.rms.interfaces.webapi.admin.ItemAdminController;
-import io.extact.msa.spring.rms.interfaces.webapi.admin.ReservationAdminController;
-import io.extact.msa.spring.rms.interfaces.webapi.admin.UserAdminController;
-import io.extact.msa.spring.rms.interfaces.webapi.member.ReserveItemController;
-import io.extact.msa.spring.rms.interfaces.webapi.universal.LoginController;
-import io.extact.msa.spring.rms.interfaces.webapi.universal.UserProfileController;
+import io.extact.msa.spring.rms.remote.resources.repository.ItemInMemoryRepository;
+import io.extact.msa.spring.rms.remote.resources.repository.ReservationInMemoryRepository;
+import io.extact.msa.spring.rms.remote.resources.repository.UserInMemoryRepository;
 
 @Configuration(proxyBeanMethods = false)
 @Import({
-        EnvConfig.class,
-        RestControllerConfig.class,
+        RmsHeaderAuthConfig.class,
+        RestControllerConfig.class
 })
-public class WebApiConfig {
+public class WebApiConfig implements WebMvcConfigurer {
 
-    @Bean
-    StartupLogRunner startupLogRunner(MainModuleInformation moduleInfo, ActiveProfileResolver profileResolver) {
-        return new StartupLogRunner(moduleInfo, profileResolver);
-    }
-
-    // --- for admin
-
-    @Bean
-    ItemAdminController itemAdminController(ItemAdminService service) {
-        return new ItemAdminController(service);
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        configurer.addPathPrefix("/remote",
+                HandlerTypePredicate.forAssignableType(
+                        ItemResourceController.class,
+                        ReservationResourceController.class,
+                        UserResourceController.class));
     }
 
     @Bean
-    ReservationAdminController reservationAdminController(ReservationAdminService service) {
-        return new ReservationAdminController(service);
+    AuthorizeHttpRequestCustomizer authorizeRequestCustomizer() {
+        return (AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry configurer) -> configurer
+                .requestMatchers("/remote/users/auth").permitAll()
+                .anyRequest().authenticated();
     }
 
     @Bean
-    UserAdminController userAdminController(UserAdminService service) {
-        return new UserAdminController(service);
-    }
-
-    // --- for member
-
-    @Bean
-    ReserveItemController itemReservationController(ReserveItemService service) {
-        return new ReserveItemController(service);
-    }
-
-    // --- for universal
-
-    @Bean
-    LoginController loginController(LoginService service) {
-        return new LoginController(service);
+    ItemResourceController itemResourceController(ItemInMemoryRepository repository) {
+        return new ItemResourceController(repository);
     }
 
     @Bean
-    UserProfileController userProfileController(UserProfileService service) {
-        return new UserProfileController(service);
+    ReservationResourceController reservationResourceController(ReservationInMemoryRepository repository) {
+        return new ReservationResourceController(repository);
+    }
+
+    @Bean
+    UserResourceController userResourceController(UserInMemoryRepository repository) {
+        return new UserResourceController(repository);
     }
 }

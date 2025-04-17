@@ -10,3 +10,11 @@ rms:
       enable: false
       #system-properties: on
       #system-environment: on
+  persistence:
+    item:
+      remote:
+        url: http://localhost:${local.server.port}
+        format:
+          date: ${spring.mvc.format.date}
+          date-time: ${spring.mvc.format.date-time}
+      

@@ -12,7 +12,7 @@ spring:
     group:
       jpa-all: item-jpa,reservation-jpa,user-jpa
       file-all: item-file,reservation-file,user-file
-    default: jpa-all
+    default: item,reservation,user
   mvc:
     format:
       date: yyyyMMdd

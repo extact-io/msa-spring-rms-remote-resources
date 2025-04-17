@@ -62,7 +62,7 @@ public abstract class InMemoryRepository<R extends RemoteResource> {
 
     public void add(@RequestBody R resource) {
         if (resourceMap().putIfAbsent(resource.id(), resource) != null) {
-            throw new BusinessFlowException("already exists. key:" + resource.id(), CauseType.DUPLICATE);
+            throw new BusinessFlowException("Already exists. key:" + resource.id(), CauseType.DUPLICATE);
         }
     }
 
