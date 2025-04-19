@@ -3,6 +3,7 @@ package io.extact.msa.spring.rms.remote.resources.controller;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.web.method.HandlerTypePredicate;
@@ -40,16 +41,19 @@ public class WebApiConfig implements WebMvcConfigurer {
     }
 
     @Bean
+    @Profile("item")
     ItemResourceController itemResourceController(ItemInMemoryRepository repository) {
         return new ItemResourceController(repository);
     }
 
     @Bean
+    @Profile("reservation")
     ReservationResourceController reservationResourceController(ReservationInMemoryRepository repository) {
         return new ReservationResourceController(repository);
     }
 
     @Bean
+    @Profile("user")
     UserResourceController userResourceController(UserInMemoryRepository repository) {
         return new UserResourceController(repository);
     }

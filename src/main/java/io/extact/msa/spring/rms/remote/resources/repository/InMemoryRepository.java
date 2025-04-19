@@ -2,6 +2,8 @@ package io.extact.msa.spring.rms.remote.resources.repository;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -11,14 +13,16 @@ import java.util.stream.Collectors;
 
 import jakarta.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 
 import io.extact.msa.spring.platform.fw.exception.BusinessFlowException;
 import io.extact.msa.spring.platform.fw.exception.BusinessFlowException.CauseType;
@@ -26,13 +30,20 @@ import io.extact.msa.spring.rms.remote.resources.RemoteResource;
 
 public abstract class InMemoryRepository<R extends RemoteResource> {
 
+    @Value("${rms.resources.format:yyyyMMdd HH:mm}")
+    private String format;
+
     private Map<Integer, R> resourceMap;
 
     @PostConstruct
     protected void init() throws IOException {
 
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(LocalDateTime.class,
+                new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(format)));
+
         ObjectMapper mapper = JsonMapper.builder()
-                .addModule(new JavaTimeModule())
+                .addModule(module)
                 .build();
 
         TypeFactory typeFactory = mapper.getTypeFactory();

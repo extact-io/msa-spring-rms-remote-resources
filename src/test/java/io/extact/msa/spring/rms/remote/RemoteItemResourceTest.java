@@ -19,27 +19,16 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.web.client.RestClient;
-import org.springframework.web.client.support.RestClientAdapter;
-import org.springframework.web.service.invoker.HttpServiceProxyFactory;
+import org.springframework.test.context.ActiveProfiles;
 
-import io.extact.msa.spring.platform.core.auth.client.LoginUserHeaderRequestInitializer;
-import io.extact.msa.spring.platform.fw.infrastructure.external.ErrorMessageDeserializer;
 import io.extact.msa.spring.platform.fw.infrastructure.external.ExternalProperties;
-import io.extact.msa.spring.platform.fw.infrastructure.external.RestClientErrorHandler;
-import io.extact.msa.spring.platform.fw.infrastructure.external.converter.ConfigConversionServiceBuilder;
-import io.extact.msa.spring.platform.fw.infrastructure.external.converter.ConfigMessageConveterBuilder;
 import io.extact.msa.spring.platform.fw.test.utils.TestAuthUtils;
 import io.extact.msa.spring.rms.remote.client.ItemResourceClient;
 import io.extact.msa.spring.rms.remote.resources.ItemResource;
-import io.extact.msa.spring.test.spring.LocalHostUriBuilderFactory;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@Profile("item")
+@ActiveProfiles({ "item", "test" })
 @TestMethodOrder(OrderAnnotation.class)
 public class RemoteItemResourceTest {
 
@@ -64,27 +53,7 @@ public class RemoteItemResourceTest {
 
         @Bean
         ItemResourceClient itemResourceClient(ExternalProperties prop, Environment env) {
-
-            HttpMessageConverter<Object> converter = ConfigMessageConveterBuilder
-                    .builder(prop)
-                    .build();
-            ConversionService conversionService = ConfigConversionServiceBuilder
-                    .builder(prop)
-                    .build();
-
-            RestClient restClient = RestClient.builder()
-                    .uriBuilderFactory(new LocalHostUriBuilderFactory(env))
-                    .messageConverters(converters -> converters.addFirst(converter))
-                    .defaultStatusHandler(new RestClientErrorHandler(new ErrorMessageDeserializer()))
-                    .requestInitializer(new LoginUserHeaderRequestInitializer())
-                    .build();
-
-            RestClientAdapter adapter = RestClientAdapter.create(restClient);
-            HttpServiceProxyFactory factory = HttpServiceProxyFactory
-                    .builderFor(adapter)
-                    .conversionService(conversionService)
-                    .build();
-            return factory.createClient(ItemResourceClient.class);
+            return ClientFactoryUtils.createClient(prop, env, ItemResourceClient.class);
         }
     }
 
@@ -164,7 +133,7 @@ public class RemoteItemResourceTest {
     @Order(WITH_SIDE_EFFECT)
     void testDelete() {
         // given
-        int  deleteId = 1;
+        int  deleteId = 3;
         // when
         boolean result = client.delete(deleteId);
         // then
@@ -181,6 +150,16 @@ public class RemoteItemResourceTest {
         // then
         assertThat(result).isFalse();
         assertThat(client.get(notFoundId)).isNull();
+    }
+
+    @Test
+    void testNextIdentity() {
+        // given
+        int currentId = client.getAll().size();
+        // when
+        int nextId = client.nextIdentity();
+        // then
+        assertThat(nextId).isEqualTo(currentId + 1);
     }
 
     @Test

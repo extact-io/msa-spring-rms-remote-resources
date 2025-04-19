@@ -7,7 +7,7 @@ spring:
 rms:
   debug:
     configdump:
-      enable: false
+      enable: true
       #system-properties: on
       #system-environment: on
   persistence:
@@ -17,4 +17,15 @@ rms:
         format:
           date: ${spring.mvc.format.date}
           date-time: ${spring.mvc.format.date-time}
-      
+    user:
+      remote:
+        url: http://localhost:${local.server.port}
+        format:
+          date: ${spring.mvc.format.date}
+          date-time: ${spring.mvc.format.date-time}
+    reservation:
+      remote:
+        url: http://localhost:${local.server.port}
+        format:
+          date: ${spring.mvc.format.date}
+          date-time: ${spring.mvc.format.date-time}
