@@ -36,7 +36,7 @@ public abstract class InMemoryRepository<R extends RemoteResource> {
     private Map<Integer, R> resourceMap;
 
     @PostConstruct
-    protected void init() throws IOException {
+    public void init() throws IOException {
 
         SimpleModule module = new SimpleModule();
         module.addDeserializer(LocalDateTime.class,

@@ -1,5 +1,6 @@
 package io.extact.msa.spring.rms.remote.resources.controller;
 
+import java.io.IOException;
 import java.util.Collection;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +14,11 @@ import io.extact.msa.spring.rms.remote.resources.RemoteResource;
 import io.extact.msa.spring.rms.remote.resources.repository.InMemoryRepository;
 
 public abstract class RemoteResourceController<R extends RemoteResource> {
+
+    @GetMapping("/reset")
+    public void reset() throws IOException {
+        repository().init();
+    }
 
     @GetMapping("/{id}")
     public R get(@PathVariable Integer id) {

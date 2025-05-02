@@ -36,6 +36,7 @@ public class WebApiConfig implements WebMvcConfigurer {
     @Bean
     AuthorizeHttpRequestCustomizer authorizeRequestCustomizer() {
         return (AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry configurer) -> configurer
+                .requestMatchers("/remote/*/reset").hasRole("SYSTEM")
                 .requestMatchers("/remote/users/auth").permitAll()
                 .anyRequest().authenticated();
     }

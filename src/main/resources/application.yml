@@ -4,6 +4,8 @@ logging.level:
     #security: trace
     #context.support.ResourceBundleMessageSource: DEBUG
 
+server.port: 8081
+    
 spring:
   messages:
     basename: fw-messages
