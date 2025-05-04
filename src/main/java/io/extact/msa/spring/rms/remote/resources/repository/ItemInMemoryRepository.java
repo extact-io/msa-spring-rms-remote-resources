@@ -1,19 +1,21 @@
 package io.extact.msa.spring.rms.remote.resources.repository;
 
-import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 
 import io.extact.msa.spring.rms.remote.resources.ItemResource;
 
 public class ItemInMemoryRepository extends InMemoryRepository<ItemResource> {
 
     @Value("${rms.resources.item}")
-    private File jsonFile;
+    private Resource jsonFile;
 
     @Override
-    protected File jsonFile() {
-        return this.jsonFile;
+    protected InputStream jsonFile() throws IOException {
+        return this.jsonFile.getInputStream();
     }
 
     @Override

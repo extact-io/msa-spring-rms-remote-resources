@@ -1,101 +1,115 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>io.extact</groupId>
-		<artifactId>msa-spring-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../msa-spring-parent/pom.xml</relativePath>
-	</parent>
-	<artifactId>msa-spring-rms-remote-resources</artifactId>
-	<packaging>jar</packaging>
-	<name>msa-spring-rms-remote-resources</name>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.extact</groupId>
+        <artifactId>msa-spring-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../msa-spring-parent/pom.xml</relativePath>
+    </parent>
+    <artifactId>msa-spring-rms-remote-resources</artifactId>
+    <packaging>jar</packaging>
+    <name>msa-spring-rms-remote-resources</name>
 
-	<repositories>
-		<repository>
-			<id>github</id>
-			<name>GitHub Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com/extact-io/msa-spring-rms-application</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub Apache Maven Packages</name>
+            <url>
+                https://maven.pkg.github.com/extact-io/msa-spring-rms-application</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
-	<properties>
-		<image.name>msa-spring-application</image.name>
-	</properties>
+    <properties>
+        <image.name>msa-spring-application</image.name>
+    </properties>
 
-	<dependencies>
+    <dependencies>
 
-		<!-- ======================================== -->
-		<!-- adding optional transitive dependencies  -->
-		<!-- ======================================== -->
-		<dependency>
-			<groupId>io.extact</groupId>
-			<artifactId>msa-spring-platform-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.extact</groupId>
-			<artifactId>msa-spring-platform-fw</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.extact</groupId>
-			<artifactId>msa-spring-test-lib</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.extact</groupId>
-			<artifactId>msa-spring-platform-fw-test-lib</artifactId>
-			<scope>test</scope>
-		</dependency>
+        <!-- ======================================== -->
+        <!-- adding optional transitive dependencies  -->
+        <!-- ======================================== -->
+        <dependency>
+            <groupId>io.extact</groupId>
+            <artifactId>msa-spring-platform-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.extact</groupId>
+            <artifactId>msa-spring-platform-fw</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.extact</groupId>
+            <artifactId>msa-spring-test-lib</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.extact</groupId>
+            <artifactId>msa-spring-platform-fw-test-lib</artifactId>
+            <scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
         </dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>ch.qos.logback.access</groupId>
-			<artifactId>logback-access-tomcat</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+        <dependency>
+            <groupId>ch.qos.logback.access</groupId>
+            <artifactId>logback-access-tomcat</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
-		<!-- ========================================= -->
-		<!-- *** test scope dependencies ***           -->
-		<!-- ========================================= -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+        <!-- ========================================= -->
+        <!-- *** test scope dependencies ***           -->
+        <!-- ========================================= -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>io.fabric8</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <image>
+                        <env>
+                            <BP_JVM_VERSION>24</BP_JVM_VERSION>
+                            <BP_JVM_JLINK_ENABLED>true</BP_JVM_JLINK_ENABLED>
+                            <BP_JVM_CDS_ENABLED>true</BP_JVM_CDS_ENABLED>
+                        </env>
+                    </image>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

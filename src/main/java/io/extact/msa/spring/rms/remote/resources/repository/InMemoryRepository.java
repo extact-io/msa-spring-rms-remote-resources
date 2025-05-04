@@ -1,7 +1,7 @@
 package io.extact.msa.spring.rms.remote.resources.repository;
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -95,5 +95,5 @@ public abstract class InMemoryRepository<R extends RemoteResource> {
 
     protected abstract Class<R> resourceClass();
 
-    protected abstract File jsonFile();
+    protected abstract InputStream jsonFile() throws IOException;
 }

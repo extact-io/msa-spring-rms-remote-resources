@@ -11,9 +11,6 @@ spring:
     basename: fw-messages
     encoding: UTF-8
   profiles:
-    group:
-      jpa-all: item-jpa,reservation-jpa,user-jpa
-      file-all: item-file,reservation-file,user-file
     default: item,reservation,user
   mvc:
     format:
@@ -46,7 +43,6 @@ rms:
         date: ${spring.mvc.format.date}
         date-time: ${spring.mvc.format.date-time}
   resources:
-    #format: ${spring.mvc.format.date}
-    item: classpath:json/item.json
-    reservation: classpath:json/reservation.json
-    user: classpath:json/user.json
+    item: classpath:/json/item.json
+    reservation: classpath:/json/reservation.json
+    user: classpath:/json/user.json
