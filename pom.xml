@@ -92,11 +92,25 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
                     <image>
+                        <!--
+                        <builder>gcr.io/buildpacks/builder:latest</builder>
+                        -->
+                        <builder>paketobuildpacks/builder-jammy-buildpackless-base</builder>
+                        <buildpacks>
+                            <buildpack>gcr.io/paketo-buildpacks/oracle</buildpack>
+                            <buildpack>paketobuildpacks/java</buildpack>
+                        </buildpacks>
                         <env>
                             <BP_JVM_VERSION>24</BP_JVM_VERSION>
-                            <BP_JVM_JLINK_ENABLED>true</BP_JVM_JLINK_ENABLED>
                             <BP_JVM_CDS_ENABLED>true</BP_JVM_CDS_ENABLED>
+                            <BP_JVM_JLINK_ENABLED>true</BP_JVM_JLINK_ENABLED>
                         </env>
                     </image>
                 </configuration>
