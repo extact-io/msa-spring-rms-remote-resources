@@ -38,6 +38,7 @@ public class WebApiConfig implements WebMvcConfigurer {
         return (AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry configurer) -> configurer
                 .requestMatchers("/remote/*/reset").hasRole("SYSTEM")
                 .requestMatchers("/remote/users/auth").permitAll()
+                .requestMatchers("/actuator/health/**").permitAll()
                 .anyRequest().authenticated();
     }
 
