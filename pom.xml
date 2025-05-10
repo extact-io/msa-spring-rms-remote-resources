@@ -89,6 +89,14 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>io.github.git-commit-id</groupId>
+                <artifactId>git-commit-id-maven-plugin</artifactId>
+                <configuration>
+                    <abbrevLength>15</abbrevLength>
+                    <dateFormat>yyyyMMdd-HHmmss</dateFormat>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
@@ -99,10 +107,19 @@
                         </exclude>
                     </excludes>
                     <image>
+                        <name>${project.artifactId}:${git.build.time}</name>
+                        <tags>
+                            <tag>${project.artifactId}:latest</tag>
+                            <tag>${project.artifactId}:${project.version}</tag>
+                            <!--
+                            <tag>${project.artifactId}:${git.commit.id.abbrev}</tag>
+                            -->
+                        </tags>
                         <!--
                         <builder>gcr.io/buildpacks/builder:latest</builder>
                         -->
-                        <builder>paketobuildpacks/builder-jammy-buildpackless-base</builder>
+                        <builder>
+                            paketobuildpacks/builder-jammy-buildpackless-base</builder>
                         <buildpacks>
                             <buildpack>gcr.io/paketo-buildpacks/oracle</buildpack>
                             <buildpack>paketobuildpacks/java</buildpack>
