@@ -12,25 +12,6 @@
     <packaging>jar</packaging>
     <name>msa-spring-rms-remote-resources</name>
 
-    <repositories>
-        <repository>
-            <id>github</id>
-            <name>GitHub Apache Maven Packages</name>
-            <url>
-                https://maven.pkg.github.com/extact-io/msa-spring-rms-application</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <properties>
-        <image.name>msa-spring-application</image.name>
-    </properties>
-
     <dependencies>
 
         <!-- ======================================== -->
@@ -91,54 +72,18 @@
             <plugin>
                 <groupId>io.github.git-commit-id</groupId>
                 <artifactId>git-commit-id-maven-plugin</artifactId>
-                <configuration>
-                    <abbrevLength>15</abbrevLength>
-                    <dateFormat>yyyyMMdd-HHmmss</dateFormat>
-                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                    <image>
-                        <name>${project.artifactId}:${git.build.time}</name>
-                        <tags>
-                            <tag>${project.artifactId}:latest</tag>
-                            <tag>${project.artifactId}:${project.version}</tag>
-                            <!--
-                            <tag>${project.artifactId}:${git.commit.id.abbrev}</tag>
-                            -->
-                        </tags>
-                        <!--
-                        <builder>gcr.io/buildpacks/builder:latest</builder>
-                        -->
-                        <builder>
-                            paketobuildpacks/builder-jammy-buildpackless-base</builder>
-                        <buildpacks>
-                            <buildpack>gcr.io/paketo-buildpacks/oracle</buildpack>
-                            <buildpack>paketobuildpacks/java</buildpack>
-                        </buildpacks>
-                        <env>
-                            <BP_JVM_VERSION>24</BP_JVM_VERSION>
-                            <BP_JVM_CDS_ENABLED>true</BP_JVM_CDS_ENABLED>
-                            <BP_JVM_JLINK_ENABLED>true</BP_JVM_JLINK_ENABLED>
-                        </env>
-                    </image>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
