@@ -1,5 +1,6 @@
 package io.extact.msa.spring.rms.remote.resources.controller;
 
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -38,7 +39,7 @@ public class WebApiConfig implements WebMvcConfigurer {
         return (AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry configurer) -> configurer
                 .requestMatchers("/remote/*/reset").hasRole("SYSTEM")
                 .requestMatchers("/remote/users/auth").permitAll()
-                .requestMatchers("/actuator/health/**").permitAll()
+                .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
                 .anyRequest().authenticated();
     }
 
