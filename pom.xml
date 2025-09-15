@@ -14,9 +14,6 @@
 
     <dependencies>
 
-        <!-- ======================================== -->
-        <!-- adding optional transitive dependencies  -->
-        <!-- ======================================== -->
         <dependency>
             <groupId>io.extact</groupId>
             <artifactId>msa-spring-platform-core</artifactId>
@@ -26,19 +23,21 @@
             <artifactId>msa-spring-platform-fw</artifactId>
         </dependency>
 
+        <!-- ======================================== -->
+        <!-- adding optional transitive dependencies  -->
+        <!-- ======================================== -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>ch.qos.logback.access</groupId>
             <artifactId>logback-access-tomcat</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
         <!-- ========================================= -->
@@ -54,39 +53,6 @@
             <artifactId>msa-spring-platform-fw-test-lib</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-
-        <!-- Metrics for OTLP -->
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-registry-otlp</artifactId>
-        </dependency>
-        <!-- Tracing for OTLP -->
-        <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-tracing-bridge-otel</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.ttddyy.observation</groupId>
-            <artifactId>datasource-micrometer-spring-boot</artifactId>
-            <version>1.1.2</version>
-        </dependency>
-        <!-- Logging for OTLP -->
-        <dependency>
-            <groupId>io.opentelemetry.instrumentation</groupId>
-            <artifactId>opentelemetry-logback-appender-1.0</artifactId>
-            <version>2.15.0-alpha</version>
-        </dependency>
-        <!-- Exporter for OTLP  -->
-        <dependency>
-            <groupId>io.opentelemetry</groupId>
-            <artifactId>opentelemetry-exporter-otlp</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
