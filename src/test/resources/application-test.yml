@@ -12,8 +12,8 @@ rms:
   debug:
     configdump:
       enable: true
-      #system-properties: on
-      #system-environment: on
+      #system-properties: true
+      #system-environment: true
   persistence:
     item:
       remote:
