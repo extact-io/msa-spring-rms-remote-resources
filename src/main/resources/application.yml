@@ -1,3 +1,7 @@
+env:
+  otlp:
+    enabled: true
+
 logging.level:
   org.springframework: info
     #transaction: info
