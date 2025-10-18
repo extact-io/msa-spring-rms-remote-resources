@@ -11,7 +11,7 @@ spring:
 rms:
   debug:
     configdump:
-      enable: true
+      enable: false
       #system-properties: true
       #system-environment: true
   persistence:

@@ -19,9 +19,6 @@ spring:
     default: item,reservation,user
       
 rms:
-  log:
-    server:
-      enable: false
   resources:
     item: classpath:/json/item.json
     reservation: classpath:/json/reservation.json
