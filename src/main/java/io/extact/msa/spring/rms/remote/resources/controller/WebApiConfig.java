@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import io.extact.msa.spring.platform.core.auth.configure.AuthorizeHttpRequestCustomizer;
 import io.extact.msa.spring.platform.core.auth.header.RmsHeaderAuthConfig;
+import io.extact.msa.spring.platform.fw.feature.auth.RdbAttributesProviderConfig;
 import io.extact.msa.spring.platform.fw.interfaces.webapi.RestControllerConfig;
 import io.extact.msa.spring.rms.remote.resources.repository.ItemInMemoryRepository;
 import io.extact.msa.spring.rms.remote.resources.repository.ReservationInMemoryRepository;
@@ -21,6 +22,7 @@ import io.extact.msa.spring.rms.remote.resources.repository.UserInMemoryReposito
 @Configuration(proxyBeanMethods = false)
 @Import({
         RmsHeaderAuthConfig.class,
+        RdbAttributesProviderConfig.class,
         RestControllerConfig.class
 })
 public class WebApiConfig implements WebMvcConfigurer {
