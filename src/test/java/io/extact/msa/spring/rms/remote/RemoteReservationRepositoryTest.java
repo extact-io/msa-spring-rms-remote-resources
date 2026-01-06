@@ -81,7 +81,7 @@ class RemoteReservationRepositoryTest {
 
     @BeforeEach
     void beforeEach() {
-        TestAuthUtils.signinByHeader(1000, "MEMBER");
+        TestAuthUtils.signinByHeader(1, "MEMBER");
     }
 
     @AfterEach
