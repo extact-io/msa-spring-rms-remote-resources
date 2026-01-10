@@ -128,7 +128,7 @@ class HeaderAuthLoginUserAttributeIntegrationTest {
     void testAuthenticatedUser() {
 
         // given
-        TestAuthUtils.signinByHeader(9, "ADMIN");
+        TestAuthUtils.signinByHeader(1, "ADMIN");
 
         // when
         client.get()
