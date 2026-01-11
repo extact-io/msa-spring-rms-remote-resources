@@ -1,7 +1,7 @@
 package io.extact.msa.spring.rms.remote;
 
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
@@ -17,17 +17,17 @@ import io.extact.msa.spring.test.spring.LocalHostUriBuilderFactory;
 
 public class ClientFactoryUtils {
 
-     static <T> T createClient(ExternalProperties prop, Environment env, Class<T> clazz) {
+     static <T> T createClient(ExternalProperties prop, ApplicationContext context, Class<T> clazz) {
 
         HttpMessageConverter<Object> converter = ConfigMessageConveterBuilder
                 .builder(prop)
-                .build();
+                .build(context);
         ConversionService conversionService = ConfigConversionServiceBuilder
                 .builder(prop)
                 .build();
 
         RestClient restClient = RestClient.builder()
-                .uriBuilderFactory(new LocalHostUriBuilderFactory(env))
+                .uriBuilderFactory(new LocalHostUriBuilderFactory(context.getEnvironment()))
                 .messageConverters(converters -> converters.addFirst(converter))
                 .defaultStatusHandler(new RestClientErrorHandler(new ErrorMessageDeserializer()))
                 .requestInitializer(new LoginUserHeaderRequestInitializer())

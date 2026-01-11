@@ -16,10 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
 
 import io.extact.msa.spring.platform.fw.infrastructure.external.ExternalProperties;
@@ -74,8 +74,8 @@ class RemoteUserRepositoryTest {
         }
 
         @Bean
-        UserResourceClient userResourceClient(ExternalProperties prop, Environment env) {
-            return ClientFactoryUtils.createClient(prop, env, UserResourceClient.class);
+        UserResourceClient userResourceClient(ExternalProperties prop, ApplicationContext context) {
+            return ClientFactoryUtils.createClient(prop, context, UserResourceClient.class);
         }
     }
 
