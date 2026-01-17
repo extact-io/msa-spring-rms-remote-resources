@@ -16,13 +16,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 import io.extact.msa.spring.platform.fw.infrastructure.external.ExternalProperties;
+import io.extact.msa.spring.platform.fw.infrastructure.external.customizer.RmsRestClientCustomizer;
+import io.extact.msa.spring.platform.fw.infrastructure.external.customizer.SingleRestClientConfig;
+import io.extact.msa.spring.platform.fw.test.customizer.LocalHostUriBuilderFactoryCustomizer;
 import io.extact.msa.spring.platform.fw.test.utils.TestAuthUtils;
 import io.extact.msa.spring.rms.remote.client.UserResourceClient;
 import io.extact.msa.spring.rms.remote.resources.UserResource;
@@ -64,7 +67,9 @@ class RemoteUserRepositoryTest {
     private UserResourceClient client;
 
     @Configuration(proxyBeanMethods = false)
-    @Import(RemoteResourcesApplication.class)
+    @Import({
+            RemoteResourcesApplication.class,
+            SingleRestClientConfig.class })
     static class TestConfig {
 
         @Bean
@@ -74,8 +79,13 @@ class RemoteUserRepositoryTest {
         }
 
         @Bean
-        UserResourceClient userResourceClient(ExternalProperties prop, ApplicationContext context) {
-            return ClientFactoryUtils.createClient(prop, context, UserResourceClient.class);
+        RmsRestClientCustomizer overrideRestClientConfig() {
+            return LocalHostUriBuilderFactoryCustomizer.INSTANCE;
+        }
+
+        @Bean
+        UserResourceClient userResourceClient(HttpServiceProxyFactory factory) {
+            return factory.createClient(UserResourceClient.class);
         }
     }
 
