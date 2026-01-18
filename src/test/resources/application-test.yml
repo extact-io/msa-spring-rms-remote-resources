@@ -14,22 +14,3 @@ rms:
       enable: false
       #system-properties: true
       #system-environment: true
-  persistence:
-    item:
-      remote:
-        url: http://localhost:${local.server.port}
-        format:
-          date: ${spring.mvc.format.date}
-          date-time: ${spring.mvc.format.date-time}
-    user:
-      remote:
-        url: http://localhost:${local.server.port}
-        format:
-          date: ${spring.mvc.format.date}
-          date-time: ${spring.mvc.format.date-time}
-    reservation:
-      remote:
-        url: http://localhost:${local.server.port}
-        format:
-          date: ${spring.mvc.format.date}
-          date-time: ${spring.mvc.format.date-time}
