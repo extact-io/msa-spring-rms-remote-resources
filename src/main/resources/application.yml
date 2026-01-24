@@ -1,13 +1,3 @@
-env:
-  otlp:
-    enabled: true
-
-logging.level:
-  org.springframework: info
-    #transaction: info
-    #security: trace
-    #context.support.ResourceBundleMessageSource: DEBUG
-
 server:
   port: 8081
     

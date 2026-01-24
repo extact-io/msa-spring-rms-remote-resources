@@ -1,5 +1,3 @@
-debug: false
-
 env:
   otlp:
     enabled: false # テストはOTELは無効なのを前提にしているためfalse固定すること
@@ -7,10 +5,3 @@ env:
 spring:
   main:
     banner-mode: off
-
-rms:
-  debug:
-    configdump:
-      enable: false
-      #system-properties: true
-      #system-environment: true
